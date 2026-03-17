@@ -40,7 +40,8 @@
     .nav-dropdown > a { display: flex; align-items: center; gap: 4px; cursor: pointer; }
     .nav-dropdown > a .chevron { display: inline-block; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid currentColor; transition: transform .25s; margin-top: 1px; }
     .nav-dropdown:hover > a .chevron { transform: rotate(180deg); }
-    .dropdown-menu { display: none; position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%); background: #fff; border: 1px solid rgba(0,0,0,.08); border-radius: 10px; padding: 6px 0; min-width: 200px; list-style: none; box-shadow: 0 8px 24px rgba(0,0,0,.1); z-index: 200; }
+    .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); padding-top: 10px; list-style: none; z-index: 200; }
+    .dropdown-menu-inner { background: #fff; border: 1px solid rgba(0,0,0,.08); border-radius: 10px; padding: 6px 0; min-width: 200px; box-shadow: 0 8px 24px rgba(0,0,0,.1); }
     .nav-dropdown:hover .dropdown-menu { display: block; }
     .dropdown-menu li a { display: flex; align-items: center; gap: 8px; padding: 9px 16px; font-size: .88rem; color: #444; white-space: nowrap; transition: background .2s, color .2s; }
     .dropdown-menu li a:hover { background: rgba(26,111,196,.06); color: var(--brand); }
@@ -208,8 +209,10 @@
       <li class="nav-dropdown">
         <a href="#">Services <span class="chevron"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="cuci-karpet.html">Cuci Ambal & Karpet</a></li>
-          <li><a href="cuci-sepatu.html">Cuci Sepatu</a></li>
+          <div class="dropdown-menu-inner">
+            <li><a href="cuci-karpet.html">Cuci Ambal & Karpet</a></li>
+            <li><a href="cuci-sepatu.html">Cuci Sepatu</a></li>
+          </div>
         </ul>
       </li>
       <li><a href="#faq">FAQ</a></li>
