@@ -55,6 +55,17 @@
     .nav-links a { text-decoration: none; font-size: 0.9rem; font-weight: 500; color: var(--muted); transition: color .2s; }
     .nav-links a:hover { color: var(--brand); }
     .nav-links a.home-link { color: var(--brand); font-weight: 600; }
+    /* dropdown */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+    .nav-dropdown > a .chevron { display: inline-block; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid currentColor; transition: transform .25s; margin-top: 1px; }
+    .nav-dropdown:hover > a .chevron { transform: rotate(180deg); }
+    .dropdown-menu { display: none; position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%); background: #fff; border: 1px solid rgba(0,0,0,.08); border-radius: 10px; padding: 6px 0; min-width: 200px; list-style: none; box-shadow: 0 8px 24px rgba(0,0,0,.1); z-index: 200; }
+    .nav-dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu li a { display: flex; align-items: center; gap: 8px; padding: 9px 16px; font-size: .88rem; color: #444; white-space: nowrap; transition: background .2s, color .2s; }
+    .dropdown-menu li a:hover { background: rgba(93,95,239,.06); color: var(--brand); }
+    /* mobile sub */
+    .mobile-sub-link { display: block; padding: 8px 16px 8px 28px !important; font-size: .88rem !important; color: #666 !important; border-left: 2px solid var(--brand); margin-left: 8px; }
     .nav-cta {
       background: var(--brand); color: #fff; border: none; border-radius: 8px;
       padding: 9px 20px; font-size: 0.9rem; font-weight: 600;
@@ -400,7 +411,13 @@
     <ul class="nav-links">
       <li><a href="index.html" class="home-link">← Home</a></li>
       <li><a href="#types">Jenis Karpet</a></li>
-      <li><a href="#how">Cara Kerja</a></li>
+      <li class="nav-dropdown">
+        <a href="#">Services <span class="chevron"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="cuci-karpet.html">Cuci Ambal & Karpet</a></li>
+          <li><a href="cuci-sepatu.html">Cuci Sepatu</a></li>
+        </ul>
+      </li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="paket-usaha-laundry.html">Buka Usaha Laundry</a></li>
     </ul>
@@ -412,7 +429,9 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html" class="home-link">← Home</a>
     <a href="#types" onclick="closeMobileMenu()">Jenis Karpet</a>
-    <a href="#how" onclick="closeMobileMenu()">Cara Kerja</a>
+    <a href="#" style="pointer-events:none;font-weight:600;color:#555;padding:8px 0;display:block;">Services</a>
+    <a href="cuci-karpet.html" class="mobile-sub-link" onclick="closeMobileMenu()">Cuci Ambal & Karpet</a>
+    <a href="cuci-sepatu.html" class="mobile-sub-link" onclick="closeMobileMenu()">Cuci Sepatu</a>
     <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
     <a href="paket-usaha-laundry.html" onclick="closeMobileMenu()">Buka Usaha Laundry</a>
     <a href="https://wa.me/6281141020169?text=Halo%20Homie%20Laundry%2C%20saya%20mau%20pesan%20jasa%20cuci%20karpet" class="mobile-cta" target="_blank">💬 Pesan Sekarang</a>
