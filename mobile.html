@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homie Laundry Samarinda</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        surface: '#FDFBF7',
+                    },
+                    fontFamily: {
+                        display: ['EB Garamond', 'serif'],
+                        body: ['DM Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { 
+            background-color: #FDFBF7; 
+            color: #1e293b; 
+        }
+        
+        /* Orbit Animation CSS */
+        .orbit-wrapper-outer {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            border: 2px dashed rgba(37, 99, 235, 0.2);
+            animation: wrapper-spin 45s linear infinite;
+            z-index: 10;
+        }
+        .orbit-wrapper-inner {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 2px dashed rgba(37, 99, 235, 0.3);
+            animation: wrapper-spin-reverse 35s linear infinite;
+            z-index: 15;
+        }
+        
+        @media (min-width: 768px) {
+            .orbit-wrapper-outer { width: 480px; height: 480px; }
+            .orbit-wrapper-inner { width: 280px; height: 280px; }
+        }
+
+        .orbit-item { position: absolute; }
+        
+        /* Outer (4 Items) */
+        .outer-1 { top: 0%; left: 50%; transform: translate(-50%, -50%); }
+        .outer-2 { top: 50%; left: 100%; transform: translate(-50%, -50%); }
+        .outer-3 { top: 100%; left: 50%; transform: translate(-50%, -50%); }
+        .outer-4 { top: 50%; left: 0%; transform: translate(-50%, -50%); }
+        
+        /* Inner (5 Items) */
+        .inner-1 { top: 0%; left: 50%; transform: translate(-50%, -50%); }
+        .inner-2 { top: 34.5%; left: 97.5%; transform: translate(-50%, -50%); }
+        .inner-3 { top: 90.4%; left: 79.3%; transform: translate(-50%, -50%); }
+        .inner-4 { top: 90.4%; left: 20.6%; transform: translate(-50%, -50%); }
+        .inner-5 { top: 34.5%; left: 2.5%; transform: translate(-50%, -50%); }
+
+        .orbit-item > a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            color: #2563EB;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.75rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        @media (min-width: 768px) {
+            .orbit-item > a { padding: 12px 24px; font-size: 0.9rem; }
+        }
+        
+        /* Counter rotation based on wrapper direction */
+        .orbit-wrapper-outer .orbit-item > a { animation: item-spin-reverse 45s linear infinite; }
+        .orbit-wrapper-inner .orbit-item > a { animation: item-spin 35s linear infinite; }
+        
+        .orbit-item > a:hover {
+            transform: scale(1.1) !important;
+            background: #2563EB;
+            color: white;
+            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.3);
+            text-decoration: none;
+        }
+
+        @keyframes wrapper-spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+        @keyframes wrapper-spin-reverse { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(-360deg); } }
+        @keyframes item-spin { 100% { transform: rotate(360deg); } }
+        @keyframes item-spin-reverse { 100% { transform: rotate(-360deg); } }
+        
+        /* Pause the orbit when hovering over the wrapper */
+        .orbit-wrapper-outer:hover, .orbit-wrapper-outer:hover .orbit-item > a { animation-play-state: paused; }
+        .orbit-wrapper-inner:hover, .orbit-wrapper-inner:hover .orbit-item > a { animation-play-state: paused; }
+
+        /* Center Logo styling */
+        .center-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            background: linear-gradient(135deg, #2563EB, #1E40AF);
+            color: white;
+            border: 4px solid #FDFBF7;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Marquee Testimonials */
+        @keyframes marquee-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @keyframes marquee-right {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+        .animate-marquee-left {
+            display: flex;
+            width: max-content;
+            animation: marquee-left 35s linear infinite;
+        }
+        .animate-marquee-right {
+            display: flex;
+            width: max-content;
+            animation: marquee-right 35s linear infinite;
+        }
+        .animate-marquee-left:hover, .animate-marquee-right:hover {
+            animation-play-state: paused;
+        }
+        .testimonial-card {
+            width: 320px;
+            background: white;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            padding: 1.25rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .testimonial-card:hover {
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+            transform: translateY(-5px);
+        }
+
+        /* Aqua Wave Text Effect */
+        @keyframes liquidWave {
+            0%, 100% {
+                clip-path: polygon(0% 45%, 15% 44%, 32% 50%, 54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
+            }
+            50% {
+                clip-path: polygon(0% 60%, 15% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
+            }
+        }
+        .aqua-text {
+            position: relative;
+            color: rgba(37, 99, 235, 0.15); /* Transparent primary */
+            display: inline-block;
+        }
+        .aqua-text::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: #2563EB; /* Solid primary */
+            animation: liquidWave 3s ease-in-out infinite;
+            -webkit-text-stroke: 1px #2563EB;
+        }
+    </style>
+</head>
+<body class="font-body antialiased overflow-x-hidden">
+    
+    <!-- Navbar -->
+    <nav class="w-full px-6 md:px-12 py-5 flex justify-between items-center bg-surface/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200/50">
+        <div class="font-display text-2xl md:text-3xl font-semibold tracking-tight text-primary">Homie Laundry</div>
+        <div class="hidden md:flex gap-10 items-center font-medium text-sm">
+            <a href="#" class="text-primary border-b-2 border-primary pb-1">Beranda</a>
+            <a href="#services" class="text-gray-600 hover:text-primary transition-colors">Layanan</a>
+            <a href="#about" class="text-gray-600 hover:text-primary transition-colors">Tentang Kami</a>
+            <a href="https://wa.me/6281141020169" target="_blank" class="bg-primary text-white px-7 py-2.5 rounded-full hover:bg-primary/90 hover:shadow-lg transition-all active:scale-95">Pesan Sekarang</a>
+        </div>
+        <!-- Mobile Menu Icon (simplified) -->
+        <div class="md:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </div>
+    </nav>
+
+    <!-- Hero Section (White Theme + Video Block) -->
+    <header class="w-full px-4 md:px-12 py-6 md:py-8">
+        <!-- Video Hero Block -->
+        <div class="relative w-full max-w-4xl mx-auto rounded-[2rem] overflow-hidden shadow-xl mb-10 md:mb-14 bg-white/50 flex justify-center border border-gray-100">
+            <video autoplay loop muted playsinline class="w-full h-auto max-h-[75vh] object-contain">
+                <source src="video hero.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <!-- Hero Content (Text below video) -->
+        <div class="w-full text-center max-w-4xl mx-auto px-4 mt-4">
+            <h1 class="font-display text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight">
+                <span class="aqua-text" data-text="Laundry Bersih,">Laundry Bersih,</span><br/>
+                <span class="aqua-text" data-text="Cepat, dan Wangi.">Cepat, dan Wangi.</span>
+            </h1>
+            <p class="text-base md:text-xl text-gray-600 font-light mb-8 leading-relaxed max-w-2xl mx-auto">
+                Kenyamanan pakaian Anda adalah prioritas kami. Nikmati layanan laundry premium dengan standar hotel berbintang.
+            </p>
+            <a href="#services" class="inline-block bg-primary text-white font-medium px-10 py-4 rounded-full hover:bg-primary/90 transition-all shadow-lg shadow-primary/30 hover:shadow-xl active:scale-95">
+                Jelajahi Layanan
+            </a>
+        </div>
+    </header>
+
+    <!-- Testimonials Marquee Section -->
+    <section class="w-full py-12 md:py-16 overflow-hidden bg-surface relative">
+        <div class="text-center mb-10 px-6">
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-3">Apa Kata Mereka?</h2>
+            <p class="text-gray-500 max-w-lg mx-auto">Lebih dari ratusan pelanggan telah mempercayakan pakaiannya kepada kami.</p>
+        </div>
+
+        <div class="flex flex-col gap-6">
+            <!-- Row 1: Left to Right -->
+            <div class="animate-marquee-left gap-6 pl-6">
+                <!-- Group 1 -->
+                <div class="flex gap-6">
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Hasil cucian sangat wangi dan rapi. Puas banget pokoknya!"</p>
+                        <p class="text-xs text-gray-400 font-bold">- Aisyah R.</p>
+                    </a>
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Layanan antar jemputnya gratis dan tepat waktu. Admin sangat ramah."</p>
+                        <p class="text-xs text-gray-400 font-bold">- Budi Santoso</p>
+                    </a>
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Express 24 jam beneran cepat, bajunya langsung bisa dipakai acara besoknya."</p>
+                        <p class="text-xs text-gray-400 font-bold">- Maya Putri</p>
+                    </a>
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Cuci bedcover di sini bersih banget dan wanginya tahan berhari-hari di kamar."</p>
+                        <p class="text-xs text-gray-400 font-bold">- Dina L.</p>
+                    </a>
+                </div>
+                <!-- Group 2 (Clone for infinite loop) -->
+                <div class="flex gap-6">
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Hasil cucian sangat wangi dan rapi. Puas banget pokoknya!"</p>
+                        <p class="text-xs text-gray-400 font-bold">- Aisyah R.</p>
+                    </a>
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Layanan antar jemputnya gratis dan tepat waktu. Admin sangat ramah."</p>
+                        <p class="text-xs text-gray-400 font-bold">- Budi Santoso</p>
+                    </a>
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Express 24 jam beneran cepat, bajunya langsung bisa dipakai acara besoknya."</p>
+                        <p class="text-xs text-gray-400 font-bold">- Maya Putri</p>
+                    </a>
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Cuci bedcover di sini bersih banget dan wanginya tahan berhari-hari di kamar."</p>
+                        <p class="text-xs text-gray-400 font-bold">- Dina L.</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Row 2: Right to Left -->
+            <div class="animate-marquee-right gap-6 pl-6">
+                <!-- Group 1 -->
+                <div class="flex gap-6">
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Kurirnya ramah dan selalu konfirmasi sebelum datang buat pick-up."</p>
+                        <p class="text-xs text-gray-400 font-bold">- Rendy Saputra</p>
+                    </a>
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Langganan terus karena kualitasnya stabil dan tidak pernah mengecewakan."</p>
+                        <p class="text-xs text-gray-400 font-bold">- Citra P.</p>
+                    </a>
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Noda membandel di kemeja putih bisa hilang bersih tanpa merusak bahan kain."</p>
+                        <p class="text-xs text-gray-400 font-bold">- Hendra W.</p>
+                    </a>
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Jarang nemu laundry di Samarinda yang pelayanannya se-profesional ini."</p>
+                        <p class="text-xs text-gray-400 font-bold">- Nisa A.</p>
+                    </a>
+                </div>
+                <!-- Group 2 (Clone) -->
+                <div class="flex gap-6">
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Kurirnya ramah dan selalu konfirmasi sebelum datang buat pick-up."</p>
+                        <p class="text-xs text-gray-400 font-bold">- Rendy Saputra</p>
+                    </a>
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Langganan terus karena kualitasnya stabil dan tidak pernah mengecewakan."</p>
+                        <p class="text-xs text-gray-400 font-bold">- Citra P.</p>
+                    </a>
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Noda membandel di kemeja putih bisa hilang bersih tanpa merusak bahan kain."</p>
+                        <p class="text-xs text-gray-400 font-bold">- Hendra W.</p>
+                    </a>
+                    <a href="https://maps.app.goo.gl/search/Homie+Laundry+Samarinda" target="_blank" class="testimonial-card flex-shrink-0">
+                        <div class="flex text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <p class="text-gray-700 text-sm font-medium mb-3">"Jarang nemu laundry di Samarinda yang pelayanannya se-profesional ini."</p>
+                        <p class="text-xs text-gray-400 font-bold">- Nisa A.</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section (Orbit Animation) -->
+    <section id="services" class="w-full py-16 md:py-24 px-6 relative overflow-hidden">
+        <div class="text-center mb-16 md:mb-24">
+            <h2 class="font-display text-4xl md:text-5xl font-bold text-primary mb-4">Pilihan Layanan</h2>
+            <p class="text-gray-500 max-w-lg mx-auto text-lg">Pilih layanan yang Anda butuhkan di orbit bawah ini. Klik untuk langsung terhubung dengan admin kami via WhatsApp.</p>
+        </div>
+
+        <!-- Orbit Container -->
+        <div class="relative w-full max-w-4xl mx-auto flex justify-center items-center h-[350px] md:h-[500px]">
+            
+            <!-- Central Sun / Logo -->
+            <div class="center-logo w-24 h-24 md:w-36 md:h-36 rounded-full flex flex-col justify-center items-center absolute z-20">
+                <span class="font-display text-xl md:text-3xl font-bold leading-none mb-1">HOMIE</span>
+                <span class="text-[8px] md:text-xs uppercase tracking-[0.3em] opacity-80">Laundry</span>
+            </div>
+
+            <!-- Inner Orbit (5 Items) -->
+            <div class="orbit-wrapper-inner">
+                <div class="orbit-item inner-1">
+                    <a href="https://wa.me/6281141020169?text=Halo%20Homie%20Laundry,%20saya%20ingin%20pesan%20layanan%20Sepatu">👟 Sepatu</a>
+                </div>
+                <div class="orbit-item inner-2">
+                    <a href="https://wa.me/6281141020169?text=Halo%20Homie%20Laundry,%20saya%20ingin%20pesan%20layanan%20Ambal/Karpet">🧶 Ambal/Karpet</a>
+                </div>
+                <div class="orbit-item inner-3">
+                    <a href="https://wa.me/6281141020169?text=Halo%20Homie%20Laundry,%20saya%20ingin%20pesan%20layanan%20Gorden">🏠 Gorden</a>
+                </div>
+                <div class="orbit-item inner-4">
+                    <a href="https://wa.me/6281141020169?text=Halo%20Homie%20Laundry,%20saya%20ingin%20pesan%20layanan%20Tas">🎒 Tas</a>
+                </div>
+                <div class="orbit-item inner-5">
+                    <a href="https://wa.me/6281141020169?text=Halo%20Homie%20Laundry,%20saya%20ingin%20pesan%20Layanan%20Lainnya">✨ Lainnya</a>
+                </div>
+            </div>
+
+            <!-- Outer Orbit (4 Items - Pakaian) -->
+            <div class="orbit-wrapper-outer">
+                <div class="orbit-item outer-1">
+                    <a href="https://wa.me/6281141020169?text=Halo%20Homie%20Laundry,%20saya%20ingin%20pesan%20layanan%20Regular">🧺 Regular</a>
+                </div>
+                <div class="orbit-item outer-2">
+                    <a href="https://wa.me/6281141020169?text=Halo%20Homie%20Laundry,%20saya%20ingin%20pesan%20layanan%20Kilat">⚡ Kilat 2, 3, 5 Jam</a>
+                </div>
+                <div class="orbit-item outer-3">
+                    <a href="https://wa.me/6281141020169?text=Halo%20Homie%20Laundry,%20saya%20ingin%20pesan%20layanan%20Sameday">🚀 Sameday</a>
+                </div>
+                <div class="orbit-item outer-4">
+                    <a href="https://wa.me/6281141020169?text=Halo%20Homie%20Laundry,%20saya%20ingin%20pesan%20layanan%20Bulanan">📅 Bulanan</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full bg-white py-12 px-6 border-t border-gray-200 mt-12 text-center text-gray-700">
+        <div class="container mx-auto max-w-4xl">
+            <div class="mb-6 text-base leading-relaxed">
+                <strong class="text-2xl font-display text-primary block mb-6">Homie Laundry Samarinda</strong>
+                
+                <div class="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-12">
+                    <!-- Cabang 1 -->
+                    <div class="text-center md:text-right">
+                        <p class="font-medium text-gray-800">Cabang Aminah Syukur</p>
+                        <p class="text-sm text-gray-500 mb-3">Jl. Aminah Syukur No. 13, Samarinda Kota</p>
+                        <a href="https://wa.me/6281228470169" target="_blank" class="inline-flex items-center text-sm font-medium text-green-700 hover:text-green-800 transition-colors bg-green-50 hover:bg-green-100 px-4 py-1.5 rounded-full border border-green-200 shadow-sm">
+                            <span class="mr-2">🟢</span> 0812-2847-0169
+                        </a>
+                    </div>
+                    
+                    <!-- Divider for Desktop -->
+                    <div class="hidden md:block w-px h-16 bg-gray-200"></div>
+                    
+                    <!-- Cabang 2 -->
+                    <div class="text-center md:text-left">
+                        <p class="font-medium text-gray-800">Cabang Pasar Pagi</p>
+                        <p class="text-sm text-gray-500 mb-3">Jl. KH M Khalid No. 38A, Pasar Pagi</p>
+                        <a href="https://wa.me/6281141020169" target="_blank" class="inline-flex items-center text-sm font-medium text-green-700 hover:text-green-800 transition-colors bg-green-50 hover:bg-green-100 px-4 py-1.5 rounded-full border border-green-200 shadow-sm">
+                            <span class="mr-2">🟢</span> 0811-4102-0169
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-sm text-gray-400 mt-10">© Homie Laundry Samarinda. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <!-- Spacer for Mobile Bottom Bar -->
+    <div class="h-24 md:hidden w-full bg-white"></div>
+
+    <!-- Mobile Bottom App Bar -->
+    <div class="md:hidden fixed bottom-0 w-full bg-white border-t border-gray-100 flex justify-between items-end px-4 pb-3 pt-3 z-[100] shadow-[0_-5px_25px_rgba(0,0,0,0.06)] rounded-t-[1.5rem]">
+        
+        <!-- Home -->
+        <a href="#" class="flex flex-col items-center text-primary w-16">
+            <div class="bg-primary/15 p-1.5 px-4 rounded-full mb-1">
+                <i class="fas fa-home text-base"></i>
+            </div>
+            <span class="text-[10px] font-bold text-gray-800">Beranda</span>
+        </a>
+        
+        <!-- Call -->
+        <a href="tel:+6281141020169" class="flex flex-col items-center text-gray-400 hover:text-primary w-16 pb-1 transition-colors">
+            <i class="fas fa-phone-alt text-xl mb-1.5"></i>
+            <span class="text-[10px] font-medium">Telepon</span>
+        </a>
+        
+        <!-- Center Floating Chat (WhatsApp) -->
+        <div class="relative -top-5 w-16 flex flex-col items-center">
+            <a href="https://wa.me/6281141020169" class="flex items-center justify-center w-14 h-14 bg-primary text-white rounded-2xl border-4 border-white shadow-lg shadow-primary/30 transform transition hover:scale-105 active:scale-95">
+                <i class="fab fa-whatsapp text-2xl"></i>
+            </a>
+            <span class="absolute -bottom-5 w-full text-center text-[10px] font-bold text-gray-800">Chat</span>
+        </div>
+        
+        <!-- IG -->
+        <a href="https://instagram.com/homielaundry.samarinda" target="_blank" class="flex flex-col items-center text-gray-400 hover:text-primary w-16 pb-1 transition-colors">
+            <i class="fab fa-instagram text-xl mb-1.5"></i>
+            <span class="text-[10px] font-medium">Instagram</span>
+        </a>
+        
+        <!-- About -->
+        <a href="#services" class="flex flex-col items-center text-gray-400 hover:text-primary w-16 pb-1 transition-colors">
+            <i class="fas fa-info-circle text-xl mb-1.5"></i>
+            <span class="text-[10px] font-medium">Layanan</span>
+        </a>
+    </div>
+
+</body>
+</html>
