@@ -221,6 +221,7 @@
         <a href="#pricing" class="nav-link text-gray-700 hover:text-indigo-600">Pricing</a>
         <a href="#about"   class="nav-link text-gray-700 hover:text-indigo-600">About</a>
         <a href="#contact" class="nav-link text-gray-700 hover:text-indigo-600">Contact</a>
+        <a href="/tips-info/" class="nav-link text-gray-700 hover:text-indigo-600 font-bold">Tips & Info</a>
 
         <a href="paket-usaha-laundry.html" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-semibold text-sm transition-colors shadow-sm">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
@@ -245,6 +246,7 @@
       <a href="#pricing" class="block py-2 text-gray-700 hover:text-indigo-600">Pricing</a>
       <a href="#about"   class="block py-2 text-gray-700 hover:text-indigo-600">About</a>
       <a href="#contact" class="block py-2 text-gray-700 hover:text-indigo-600">Contact</a>
+      <a href="/tips-info/" class="block py-2 text-gray-700 hover:text-indigo-600 font-bold">Tips & Info</a>
       <a href="paket-usaha-laundry.html" class="flex items-center gap-2 mt-2 py-2.5 px-3 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-semibold text-sm transition-colors">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         Buka Usaha Laundry
@@ -621,6 +623,36 @@
             <span class="text-slate-400 text-[9px] md:text-[10px] uppercase font-bold tracking-[0.1em] block mt-1">Mengikuti</span>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- LATEST ARTICLES (BLOG)                                        -->
+  <!-- ============================================================ -->
+  <section id="latest-articles" class="py-16 bg-white">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold mb-2">Tips &amp; Info Terbaru</h2>
+        <p class="text-gray-600">Update seputar perawatan pakaian dan layanan kami.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {% set postsList = collections.tips | reverse %}
+        {% for post in postsList.slice(0, 3) %}
+        <a href="{{ post.url }}" class="block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow border border-gray-100 overflow-hidden">
+          <div class="p-6">
+            <p class="text-xs text-indigo-500 font-semibold mb-2 uppercase">{{ post.date | postDate }}</p>
+            <h3 class="text-xl font-bold mb-3 text-gray-800">{{ post.data.title }}</h3>
+            <p class="text-gray-600 text-sm line-clamp-3">{{ post.data.description }}</p>
+            <span class="inline-block mt-4 text-indigo-600 font-semibold text-sm hover:underline">Baca selengkapnya &rarr;</span>
+          </div>
+        </a>
+        {% else %}
+        <p class="text-center text-gray-500 col-span-3">Belum ada artikel terbaru.</p>
+        {% endfor %}
+      </div>
+      <div class="text-center mt-10">
+        <a href="/tips-info/" class="btn-secondary">Lihat Semua Artikel</a>
       </div>
     </div>
   </section>

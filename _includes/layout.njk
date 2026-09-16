@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T5M9QKSYRZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-T5M9QKSYRZ');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Homie Laundry Samarinda | Laundry Express, Terdekat, dan Antar Jemput</title>
+  <meta name="description" content="Homie Laundry Samarinda - Laundry bersih, cepat, dan wangi. Free pickup & delivery, Shoes Care, Dry Cleaning, Premium Ironing.">
+
+  <link rel="icon" type="image/png" href="img/icon_homie_64x64.png">
+
+  <!-- ✅ DIPERBAIKI: Font Google hanya 1x, semua digabung dalam 1 request -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- ✅ DIPERBAIKI: Font Awesome hanya 1x -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- ✅ DIPERBAIKI: Tailwind hanya 1x -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* === VARIABEL & BASE === */
+    :root {
+      --primary: #5d5fef;
+      --accent:  #ff6b6b;
+      --dark:    #2c3e50;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--dark);
+      overflow-x: hidden;
+      background: white;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+    main { padding-top: 76px; }
+
+    /* === NAVBAR === */
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0; height: 2px;
+      bottom: -4px; left: 0;
+      background: var(--primary);
+      transition: width .25s;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    /* === HERO === */
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                  url('img/banner_homie_laundry_samarinda_antar_jemput.jpg');
+      background-size: cover;
+      background-position: center;
+      min-height: 90vh;
+    }
+
+    /* === BUTTONS === */
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 999px;
+      transition: all .25s;
+      border: 2px solid var(--primary);
+      display: inline-block;
+    }
+    .btn-primary:hover { background: transparent; color: var(--primary); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      padding: 12px 28px;
+      border-radius: 999px;
+      border: 2px solid var(--primary);
+      transition: all .25s;
+      display: inline-block;
+    }
+    .btn-secondary:hover { background: var(--primary); color: white; }
+
+    /* === CARDS === */
+    .service-card {
+      transition: all .3s ease;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    }
+
+    .pricing-card { transition: all .3s ease; border-radius: 12px; overflow: hidden; }
+    .pricing-card:hover { transform: scale(1.03); box-shadow: 0 15px 30px rgba(0,0,0,0.06); }
+
+    /* === ANIMASI === */
+    .fade-in { animation: fadeIn .9s ease-in; }
+    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+
+    .animate-bounce-slow { animation: bounceSlow 3s infinite; }
+    @keyframes bounceSlow {
+      0%, 100% { transform: translateY(0) }
+      50%       { transform: translateY(-12px) }
+    }
+
+    /* === TESTIMONIAL === */
+    .testimonial-card { transition: all 0.3s ease; }
+    .dot.active { background-color: #3b82f6; width: 1.5rem; }
+
+    /* === INSTAGRAM SECTION === */
+    .instagram-gradient {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    }
+    .text-instagram {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    @supports not (-webkit-background-clip: text) {
+      .text-instagram { color: #d6249f; }
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .floating-blob {
+      position: absolute;
+      width: 300px; height: 300px;
+      background: linear-gradient(45deg, #fdf497, #fd5949);
+      filter: blur(80px);
+      border-radius: 50%;
+      z-index: -1;
+      opacity: 0.1;
+      animation: floatBlob 12s infinite alternate;
+    }
+    @keyframes floatBlob {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.1); }
+    }
+
+    /* === FLOATING CS === */
+    .floating-cs {
+      position: fixed;
+      right: 14px; bottom: 14px;
+      z-index: 9999;
+    }
+    .floating-cs img {
+      width: 120px; height: auto;
+      cursor: pointer;
+      transform: scale(3);
+      transform-origin: bottom right;
+      transition: transform 0.25s ease;
+    }
+    .floating-cs img:hover { transform: scale(3.15); }
+    @media (min-width: 768px) {
+      .floating-cs img { width: 90px; transform: scale(2); }
+    }
+
+    footer a { text-decoration: none; }
+  </style>
+</head>
+<body class="antialiased">
+
+<!-- ============================================================ -->
+<!-- NAVBAR                                                        -->
+<!-- ============================================================ -->
+<nav class="bg-white shadow-md fixed w-full z-20">
+  <div class="container mx-auto px-6 py-4">
+    <div class="flex items-center justify-between">
+
+      <!-- Logo -->
+      <div class="flex items-center">
+        <i class="fas fa-tshirt text-3xl text-indigo-600 mr-3"></i>
+        <span class="text-2xl font-bold text-indigo-600">Homie Laundry Samarinda</span>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex space-x-8 items-center">
+        <a href="#home"    class="nav-link text-gray-700 hover:text-indigo-600">Home</a>
+
+        <!-- Services Dropdown -->
+        <div class="relative group">
+          <a href="#services" class="nav-link text-gray-700 hover:text-indigo-600 flex items-center gap-1">
+            Services
+            <svg class="w-3 h-3 mt-0.5 text-gray-400 group-hover:text-indigo-600 transition-colors" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </a>
+          <div class="absolute top-full left-0 mt-3 w-48 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <div class="py-2">
+              <a href="cuci-karpet.html" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors">
+                <span class="w-0.5 h-4 bg-indigo-400 rounded-full flex-shrink-0"></span>Cuci Ambal & Karpet
+              </a>
+              <a href="cuci-sepatu.html" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors">
+                <span class="w-0.5 h-4 bg-indigo-400 rounded-full flex-shrink-0"></span>Cuci Sepatu
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="#pricing" class="nav-link text-gray-700 hover:text-indigo-600">Pricing</a>
+        <a href="#about"   class="nav-link text-gray-700 hover:text-indigo-600">About</a>
+        <a href="#contact" class="nav-link text-gray-700 hover:text-indigo-600">Contact</a>
+        <a href="/tips-info/" class="nav-link text-gray-700 hover:text-indigo-600 font-bold">Tips & Info</a>
+
+        <a href="paket-usaha-laundry.html" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-semibold text-sm transition-colors shadow-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          Buka Usaha Laundry
+        </a>
+      </div>
+
+      <!-- Hamburger -->
+      <div class="md:hidden">
+        <button id="menu-btn" class="text-gray-700 focus:outline-none">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden mt-4">
+      <a href="#home"    class="block py-2 text-gray-700 hover:text-indigo-600">Home</a>
+      <a href="#services" class="block py-2 text-gray-700 hover:text-indigo-600">Services</a>
+      <a href="cuci-karpet.html" class="flex items-center gap-2 py-2 pl-4 text-sm text-gray-500 hover:text-indigo-600 border-l-2 border-indigo-300 ml-2">Cuci Ambal & Karpet</a>
+      <a href="cuci-sepatu.html" class="flex items-center gap-2 py-2 pl-4 text-sm text-gray-500 hover:text-indigo-600 border-l-2 border-indigo-300 ml-2">Cuci Sepatu</a>
+      <a href="#pricing" class="block py-2 text-gray-700 hover:text-indigo-600">Pricing</a>
+      <a href="#about"   class="block py-2 text-gray-700 hover:text-indigo-600">About</a>
+      <a href="#contact" class="block py-2 text-gray-700 hover:text-indigo-600">Contact</a>
+      <a href="/tips-info/" class="block py-2 text-gray-700 hover:text-indigo-600 font-bold">Tips & Info</a>
+      <a href="paket-usaha-laundry.html" class="flex items-center gap-2 mt-2 py-2.5 px-3 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-semibold text-sm transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        Buka Usaha Laundry
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================ -->
+<main class="pt-24 pb-16 min-h-screen bg-gray-50"><div class="container mx-auto px-4 max-w-4xl">
+{{ content | safe }}
+</div></main>
+<!-- FOOTER                                                        -->
+<!-- ============================================================ -->
+<footer class="bg-white py-8">
+  <div class="container mx-auto px-6 text-center">
+    <div class="mb-4">
+      <strong>Homie Laundry Samarinda</strong><br>
+      Cab. Jalan Aminah Syukur No. 13, Samarinda Kota — Cab. Jalan KH M Khalid no 38A, pasar pagi
+    </div>
+    <div class="text-sm text-gray-500">© Homie Laundry Samarinda 2025. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp CS -->
+<a href="https://wa.me/6281141020169" class="floating-cs" target="_blank" rel="noopener" aria-label="Chat WhatsApp Homie Laundry">
+  <img src="img/CS_homie_float.png" alt="Customer Service Homie Laundry">
+</a>
+
+<!-- ============================================================ -->
+<!-- JAVASCRIPT (satu blok, di bawah body)                        -->
+<!-- ============================================================ -->
+<script>
+  // ── Hamburger menu ────────────────────────────────────────────
+  document.getElementById('menu-btn').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  });
+
+  // ── Kontak WA ─────────────────────────────────────────────────
+  function sendWA() {
+    const name = document.getElementById('contact-name').value.trim();
+    const msg  = document.getElementById('contact-msg').value.trim();
+    const text = `Halo Homie Laundry Samarinda, saya ${name}. ${msg}`;
+    window.open('https://wa.me/6281141020169?text=' + encodeURIComponent(text));
+  }
+
+  // ── Testimonial ───────────────────────────────────────────────
+  // ✅ DIPERBAIKI: Avatar pakai CSS (div warna), tidak perlu request ke server luar
+  const testimonials = [
+    {
+      name:   "Thanya Paramitha",
+      initials: "TP",
+      color:  "#6366f1",
+      stats:  "3 reviews",
+      time:   "2 days ago",
+      rating: 5,
+      quote:  "Lagi dinas dan cari-cari tempat laundry muncul ini. Admin dan kurir pun nya ramah banget dan fast response. Hasil laundry nya juga wangi banget & rapi. Harganya pun sangat affordable. Terimakasih homie laundry"
+    },
+    {
+      name:   "The Rovoly's",
+      initials: "TR",
+      color:  "#3b82f6",
+      stats:  "23 reviews",
+      time:   "5 days ago",
+      rating: 5,
+      quote:  "Luar biasa si, pake paket 3 jam, dan baru 2 jam kurang sudah di antar balik ke hotel. Yes, jasa antar jemputnya free.. terima kasih."
+    },
+    {
+      name:   "Ripakati",
+      initials: "RP",
+      color:  "#ec4899",
+      stats:  "1 review",
+      time:   "3 days ago",
+      rating: 5,
+      quote:  "Alhamdulillah puas sekali dengan pelayanan homie laundry samarinda, selesai sesuai estimasi waktu, sampai malam juga tetep di selesaikan dan di antar, hasil cucian juga rapih, bersih dan wangi."
+    }
+  ];
+
+  let currentIndex = 0;
+  let autoPlay;
+
+  const contentEl  = document.getElementById('testimonial-content');
+  const nameEl     = document.getElementById('user-name');
+  const avatarEl   = document.getElementById('user-avatar');
+  const statsEl    = document.getElementById('user-stats');
+  const timeEl     = document.getElementById('review-time');
+  const starsEl    = document.getElementById('star-rating');
+  const quoteEl    = document.getElementById('user-quote');
+  const dotsEl     = document.getElementById('dots-container');
+
+  function renderStars(n) {
+    starsEl.innerHTML = Array.from({length: 5}, (_, i) =>
+      `<span class="text-xl">${i < n ? '★' : '☆'}</span>`
+    ).join('');
+  }
+
+  function showTestimonial(index) {
+    currentIndex = index;
+    contentEl.style.opacity = '0';
+
+    setTimeout(() => {
+      const d = testimonials[index];
+      avatarEl.textContent        = d.initials;
+      avatarEl.style.background   = d.color;
+      nameEl.textContent          = d.name;
+      statsEl.textContent         = d.stats;
+      timeEl.textContent          = d.time;
+      quoteEl.textContent         = d.quote;
+      renderStars(d.rating);
+
+      document.querySelectorAll('.dot').forEach((dot, i) => {
+        const active = i === index;
+        dot.classList.toggle('active', active);
+        dot.classList.toggle('bg-blue-600', active);
+        dot.classList.toggle('bg-gray-300', !active);
+        dot.style.width = active ? '1.5rem' : '0.5rem';
+      });
+
+      contentEl.style.opacity = '1';
+    }, 300);
+  }
+
+  function initDots() {
+    dotsEl.innerHTML = '';
+    testimonials.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = `dot h-2 w-2 rounded-full bg-gray-300 transition-all duration-300${i === 0 ? ' active' : ''}`;
+      btn.onclick = () => { clearInterval(autoPlay); showTestimonial(i); startAutoPlay(); };
+      dotsEl.appendChild(btn);
+    });
+  }
+
+  function startAutoPlay() {
+    autoPlay = setInterval(() => {
+      showTestimonial((currentIndex + 1) % testimonials.length);
+    }, 6000);
+  }
+
+  initDots();
+  showTestimonial(0);
+  startAutoPlay();
+</script>
+
+</body>
+</html>
