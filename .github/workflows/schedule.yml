@@ -1,0 +1,16 @@
+name: Daily Blog Scheduler
+
+on:
+  schedule:
+    # Runs at 16:00 UTC every day (00:00 WITA / Waktu Samarinda)
+    - cron: '0 16 * * *'
+  workflow_dispatch:
+
+jobs:
+  trigger-dokploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hit Dokploy Webhook
+        run: |
+          curl -X GET http://195.7.5.114:3000/api/deploy/-12UIRN56b6UNqFXOR38i
+          curl -X POST http://195.7.5.114:3000/api/deploy/-12UIRN56b6UNqFXOR38i
