@@ -9,6 +9,14 @@ module.exports = function(eleventyConfig) {
     return new Intl.DateTimeFormat('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }).format(dateObj);
   });
 
+    // Filter out future posts
+  eleventyConfig.addCollection("publishedTips", function(collectionApi) {
+    const now = new Date();
+    return collectionApi.getFilteredByTag("tips").filter(item => {
+      return item.date <= now;
+    });
+  });
+
   return {
     dir: {
       input: ".",

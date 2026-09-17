@@ -11,7 +11,7 @@ eleventyExcludeFromCollections: true
   </div>
 
   <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-    {% set postsList = collections.tips | reverse %}
+    {% set postsList = collections.publishedTips | reverse %}
     {% for post in postsList %}
     <a href="{{ post.url }}" class="block bg-white rounded-xl shadow hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden group">
       <div class="p-6">

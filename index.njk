@@ -628,7 +628,7 @@
         <p class="text-gray-600">Update seputar perawatan pakaian dan layanan kami.</p>
       </div>
       <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        {% set postsList = collections.tips | reverse %}
+        {% set postsList = collections.publishedTips | reverse %}
         {% for post in postsList.slice(0, 3) %}
         <a href="{{ post.url }}" class="block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow border border-gray-100 overflow-hidden">
           <div class="p-6">
