@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  schedule:
+    # Runs at 16:00 UTC every day (00:00 Waktu Samarinda)
+    - cron: '0 16 * * *'
   workflow_dispatch:
 
 env:
@@ -43,3 +46,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Ping Dokploy Webhook to Deploy
+        run: |
+          curl -X GET http://195.7.5.114:3000/api/deploy/U5pea-BdQbq_eqR_qmllZ
