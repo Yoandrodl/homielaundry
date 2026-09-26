@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Hit Dokploy Webhook
         run: |
-          curl -X POST http://195.7.5.114:3000/api/deploy/-12UIRN56b6UNqFXOR38i -H "Content-Type: application/json" -H "X-GitHub-Event: push" -d '{"ref":"refs/heads/main"}'
+          curl -X POST http://195.7.5.114:3000/api/deploy/dhveh1miJH7y31s-rFH0n -H "Content-Type: application/json" -H "X-GitHub-Event: push" -d '{"ref":"refs/heads/main"}'
