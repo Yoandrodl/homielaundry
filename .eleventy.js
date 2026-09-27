@@ -12,6 +12,7 @@ module.exports = function(eleventyConfig) {
     // Filter out future posts
   eleventyConfig.addCollection("publishedTips", function(collectionApi) {
     const now = new Date();
+    now.setHours(now.getHours() + 8); // Adjust server UTC time to WITA (+8)
     return collectionApi.getFilteredByTag("tips").filter(item => {
       return item.date <= now;
     });
