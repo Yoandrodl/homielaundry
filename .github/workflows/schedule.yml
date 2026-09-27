@@ -2,7 +2,6 @@ name: Daily Blog Scheduler
 
 on:
   schedule:
-    # Runs at 16:00 UTC every day (00:00 WITA / Waktu Samarinda)
     - cron: '0 16 * * *'
   workflow_dispatch:
 
@@ -10,6 +9,18 @@ jobs:
   trigger-dokploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Commit Daily Timestamp to Force Rebuild
+        run: |
+          date > last_build.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add last_build.txt
+          git commit -m "chore: trigger daily rebuild for scheduled articles" || echo "No changes to commit"
+          git push
+
       - name: Hit Dokploy Webhook
         run: |
           curl -X POST http://195.7.5.114:3000/api/deploy/dhveh1miJH7y31s-rFH0n -H "Content-Type: application/json" -H "X-GitHub-Event: push" -d '{"ref":"refs/heads/main"}'

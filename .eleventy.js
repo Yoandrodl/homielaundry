@@ -14,7 +14,7 @@ module.exports = function(eleventyConfig) {
     const now = new Date();
     now.setHours(now.getHours() + 8); // Adjust server UTC time to WITA (+8)
     return collectionApi.getFilteredByTag("tips").filter(item => {
-      return item.date <= now;
+      console.log(item.fileSlug + ' ' + item.date.toISOString() + ' <= ' + now.toISOString()); return item.date <= now;
     });
   });
 
